@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@theme {
+  --color-brand-blue: #1a2e5a;
+  --color-brand-purple: #5d4fff;
+  --color-brand-purple-light: #e8eeff;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-gray-800;
+  }
+}
