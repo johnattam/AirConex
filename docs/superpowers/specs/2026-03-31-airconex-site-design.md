@@ -61,7 +61,7 @@ O modelo de negócio é **catálogo + contato**: não há carrinho ou pagamento 
 - Nome, descrição completa, especificações técnicas
 - Badges de modalidade disponível (Aluguel / Venda)
 - Selo ANVISA quando aplicável
-- Botão "Solicitar Orçamento" (abre formulário ou redireciona para /contato)
+- Botão "Solicitar Orçamento" — redireciona para `/contato` com o nome do produto pré-preenchido no campo "produto de interesse" via query string
 
 ### 4. Blog (`/blog`)
 - Lista de artigos: thumbnail, título, data, resumo
