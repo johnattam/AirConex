@@ -25,7 +25,9 @@ const produtoFields = `
 
 export async function getCategorias(): Promise<Categoria[]> {
   return client.fetch(
-    `*[_type == "category"] | order(ordem asc) { ${categoriaFields} }`
+    `*[_type == "category"] | order(ordem asc) { ${categoriaFields} }`,
+    {},
+    { next: { revalidate: 3600 } }
   )
 }
 

@@ -45,7 +45,7 @@ export interface Artigo {
   slug: string
   thumbnail: SanityImage
   resumo: string
-  conteudo: PortableTextBlock[]
+  conteudo?: PortableTextBlock[]
   publicadoEm: string
   autor: string
 }

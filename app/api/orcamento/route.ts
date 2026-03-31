@@ -20,6 +20,14 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  await sendQuoteEmail(result.data)
-  return NextResponse.json({ success: true })
+  try {
+    await sendQuoteEmail(result.data)
+    return NextResponse.json({ success: true })
+  } catch (err) {
+    console.error('[orcamento] Failed to send email:', err)
+    return NextResponse.json(
+      { error: 'Falha ao enviar mensagem. Tente novamente ou entre em contato pelo WhatsApp.' },
+      { status: 500 }
+    )
+  }
 }

@@ -3,21 +3,34 @@ import { QuoteFormData } from './types'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+}
+
 export async function sendQuoteEmail(data: QuoteFormData): Promise<void> {
+  if (!process.env.CONTACT_EMAIL) {
+    throw new Error('CONTACT_EMAIL environment variable is not set')
+  }
+
   const { nome, telefone, produto, mensagem } = data
-  const to = process.env.CONTACT_EMAIL!
+  const to = process.env.CONTACT_EMAIL
 
   await resend.emails.send({
-    from: 'onboarding@resend.dev',
+    from: process.env.FROM_EMAIL || 'onboarding@resend.dev',
     to,
     subject: `Novo pedido de orçamento — ${produto}`,
     html: `
       <h2>Novo pedido de orçamento</h2>
-      <p><strong>Nome:</strong> ${nome}</p>
-      <p><strong>Telefone:</strong> ${telefone}</p>
-      <p><strong>Produto de interesse:</strong> ${produto}</p>
+      <p><strong>Nome:</strong> ${escapeHtml(nome)}</p>
+      <p><strong>Telefone:</strong> ${escapeHtml(telefone)}</p>
+      <p><strong>Produto de interesse:</strong> ${escapeHtml(produto)}</p>
       <p><strong>Mensagem:</strong></p>
-      <p>${mensagem.replace(/\n/g, '<br>')}</p>
+      <p>${escapeHtml(mensagem).replace(/\n/g, '<br>')}</p>
     `,
   })
 }
