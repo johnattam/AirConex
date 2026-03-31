@@ -1,8 +1,6 @@
 import { Resend } from 'resend'
 import { QuoteFormData } from './types'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 function escapeHtml(text: string): string {
   return text
     .replace(/&/g, '&amp;')
@@ -17,6 +15,7 @@ export async function sendQuoteEmail(data: QuoteFormData): Promise<void> {
     throw new Error('CONTACT_EMAIL environment variable is not set')
   }
 
+  const resend = new Resend(process.env.RESEND_API_KEY)
   const { nome, telefone, produto, mensagem } = data
   const to = process.env.CONTACT_EMAIL
 
