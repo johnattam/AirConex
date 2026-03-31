@@ -1,33 +1,35 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import Navbar from '@/components/layout/Navbar'
+import Footer from '@/components/layout/Footer'
+import WhatsAppButton from '@/components/layout/WhatsAppButton'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Airconex — Equipamentos Médicos em Brasília/DF",
-  description: "Aluguel e venda de equipamentos médicos em Brasília/DF. Cilindros de oxigênio, CPAP, camas hospitalares, cadeiras de rodas. Certificada pela ANVISA.",
-};
+  title: {
+    default: 'Airconex — Equipamentos Médicos em Brasília/DF',
+    template: '%s | Airconex',
+  },
+  description:
+    'Aluguel e venda de equipamentos médicos em Brasília/DF. Cilindros de oxigênio, CPAP, camas hospitalares, cadeiras de rodas. Certificada pela ANVISA.',
+  keywords: ['equipamentos médicos', 'aluguel oxigênio', 'CPAP', 'Brasília', 'ANVISA'],
+  openGraph: {
+    siteName: 'Airconex',
+    locale: 'pt_BR',
+  },
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="pt-BR">
+      <body className={inter.className}>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
+        <WhatsAppButton />
+      </body>
     </html>
-  );
+  )
 }
